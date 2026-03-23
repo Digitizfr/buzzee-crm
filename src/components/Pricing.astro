@@ -1,0 +1,227 @@
+---
+const plans = [
+  {
+    name: 'Personnel',
+    price: '9',
+    period: '/mois',
+    description: 'Pour les indépendants et les petites équipes.',
+    features: [
+      'Gestion contacts',
+      'Emails & Agendas',
+      'Devis & Factures',
+      'Rapport d\'activité',
+      'Application mobile',
+    ],
+    cta: 'Commencer',
+    featured: false,
+  },
+  {
+    name: 'Croissance',
+    price: '29',
+    period: '/mois',
+    description: 'Pour les PME en pleine croissance.',
+    features: [
+      'Tout le plan Personnel',
+      'Gestion de prospection',
+      'Campagnes multicanal',
+      'Suivi & Rapports',
+      'Support prioritaire',
+      'Accès API',
+    ],
+    cta: 'Commencer',
+    featured: true,
+  },
+  {
+    name: 'Entreprise',
+    price: null,
+    period: null,
+    description: 'Pour les grandes équipes avec des besoins sur-mesure.',
+    features: [
+      'Tout le plan Croissance',
+      'Gestion de production',
+      'Automatisation avancée',
+      'Formation incluse',
+      'Conseiller dédié',
+      'SLA garanti',
+    ],
+    cta: 'Contactez-nous',
+    featured: false,
+  },
+];
+---
+
+<section class="section" id="tarifs">
+  <div class="container">
+    <div class="section-header">
+      <p class="label">Tarifs</p>
+      <h2 class="headline">Un tarif simple et transparent</h2>
+      <p>30 jours d'essai gratuit, sans engagement. Choisissez le plan qui correspond à vos besoins.</p>
+    </div>
+
+    <div class="pricing__grid">
+      {plans.map(plan => (
+        <div class={`pricing-card ${plan.featured ? 'pricing-card--featured' : ''}`}>
+          {plan.featured && <span class="pricing-card__badge">Populaire</span>}
+          <h3 class="pricing-card__name">{plan.name}</h3>
+          <div class="pricing-card__price">
+            {plan.price ? (
+              <>
+                <span class="pricing-card__amount">{plan.price}&euro;</span>
+                <span class="pricing-card__period">{plan.period}</span>
+              </>
+            ) : (
+              <span class="pricing-card__custom">Sur mesure</span>
+            )}
+          </div>
+          <p class="pricing-card__desc">{plan.description}</p>
+          <ul class="pricing-card__features">
+            {plan.features.map(f => (
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                {f}
+              </li>
+            ))}
+          </ul>
+          <a href="#" class={`btn ${plan.featured ? 'btn--primary' : 'btn--secondary'} pricing-card__cta`}>
+            {plan.cta}
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .pricing__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-6);
+    align-items: start;
+  }
+
+  .pricing-card {
+    position: relative;
+    background: var(--surface);
+    border-radius: var(--radius-xl);
+    padding: var(--sp-8);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+  }
+
+  .pricing-card:hover {
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+  }
+
+  .pricing-card--featured {
+    background: var(--dark-bg);
+    color: var(--dark-on);
+    box-shadow: 0 12px 48px rgba(46, 87, 72, 0.25);
+    transform: scale(1.03);
+  }
+
+  .pricing-card--featured:hover {
+    box-shadow: 0 16px 56px rgba(46, 87, 72, 0.35);
+  }
+
+  .pricing-card__badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 16px;
+    border-radius: var(--radius-full);
+    letter-spacing: 0.03em;
+  }
+
+  .pricing-card__name {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: var(--sp-4);
+  }
+
+  .pricing-card__price {
+    margin-bottom: var(--sp-4);
+  }
+
+  .pricing-card__amount {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .pricing-card__period {
+    font-size: 1rem;
+    color: var(--on-surface-variant);
+  }
+
+  .pricing-card--featured .pricing-card__period {
+    color: var(--dark-muted);
+  }
+
+  .pricing-card__custom {
+    font-size: 2rem;
+    font-weight: 800;
+  }
+
+  .pricing-card__desc {
+    font-size: 0.875rem;
+    color: var(--on-surface-variant);
+    margin-bottom: var(--sp-6);
+    line-height: 1.5;
+  }
+
+  .pricing-card--featured .pricing-card__desc {
+    color: var(--dark-muted);
+  }
+
+  .pricing-card__features {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+    margin-bottom: var(--sp-8);
+  }
+
+  .pricing-card__features li {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    font-size: 0.9375rem;
+  }
+
+  .pricing-card__features svg {
+    flex-shrink: 0;
+    color: var(--success);
+  }
+
+  .pricing-card__cta {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .pricing-card--featured .btn--primary {
+    background: var(--secondary);
+    color: var(--tertiary);
+    font-weight: 700;
+  }
+
+  .pricing-card--featured .btn--primary:hover {
+    background: #bbf59a;
+    box-shadow: 0 4px 16px rgba(206, 254, 171, 0.3);
+  }
+
+  @media (max-width: 768px) {
+    .pricing__grid {
+      grid-template-columns: 1fr;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    .pricing-card--featured {
+      transform: none;
+    }
+  }
+</style>

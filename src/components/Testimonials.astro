@@ -1,0 +1,134 @@
+---
+const testimonials = [
+  {
+    name: 'Sophie Dubois',
+    role: 'Directrice commerciale',
+    company: 'TechFlow Solutions',
+    quote: 'Nous utilisons Buzzee depuis 8 ans. Les équipes sont réactives et le produit ne cesse d\'évoluer. Un outil indispensable pour notre activité commerciale.',
+    rating: 5,
+  },
+  {
+    name: 'Marc Leroy',
+    role: 'Gérant',
+    company: 'Atelier Leroy',
+    quote: 'Après 15 ans d\'utilisation, je confirme : Buzzee est le CRM le plus intuitif du marché. La qualité du support est exceptionnelle.',
+    rating: 5,
+  },
+  {
+    name: 'Claire Martin',
+    role: 'Responsable marketing',
+    company: 'GreenVia',
+    quote: 'Buzzee nous a permis de centraliser toute notre gestion client. Le gain de temps est considérable et le travail collaboratif est facilité.',
+    rating: 4,
+  },
+];
+
+function renderStars(count: number) {
+  return Array.from({ length: 5 }, (_, i) =>
+    i < count
+      ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b" stroke="#f59e0b" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`
+      : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`
+  ).join('');
+}
+---
+
+<section class="section section--alt" id="temoignages">
+  <div class="container">
+    <div class="section-header">
+      <p class="label">Témoignages</p>
+      <h2 class="headline">Ils nous font confiance</h2>
+      <p>Note moyenne de 4.5/5 sur Google. Découvrez ce que nos clients disent de Buzzee.</p>
+    </div>
+
+    <div class="testimonials__grid">
+      {testimonials.map(t => (
+        <div class="testimonial-card">
+          <div class="testimonial-card__stars" set:html={renderStars(t.rating)} />
+          <blockquote class="testimonial-card__quote">
+            &laquo; {t.quote} &raquo;
+          </blockquote>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar">
+              {t.name.split(' ').map(n => n[0]).join('')}
+            </div>
+            <div>
+              <p class="testimonial-card__name">{t.name}</p>
+              <p class="testimonial-card__role">{t.role}, {t.company}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-6);
+  }
+
+  .testimonial-card {
+    background: var(--surface);
+    border-radius: var(--radius-xl);
+    padding: var(--sp-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-6);
+    transition: all 0.3s ease;
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  }
+
+  .testimonial-card__stars {
+    display: flex;
+    gap: 2px;
+  }
+
+  .testimonial-card__quote {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--on-surface);
+    flex-grow: 1;
+  }
+
+  .testimonial-card__author {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+  }
+
+  .testimonial-card__avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-full);
+    background: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.875rem;
+    flex-shrink: 0;
+  }
+
+  .testimonial-card__name {
+    font-weight: 700;
+    font-size: 0.9375rem;
+  }
+
+  .testimonial-card__role {
+    font-size: 0.8125rem;
+    color: var(--on-surface-variant);
+  }
+
+  @media (max-width: 768px) {
+    .testimonials__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

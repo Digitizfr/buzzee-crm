@@ -1,0 +1,152 @@
+---
+const navItems = [
+  { label: 'Fonctionnalités', href: '#fonctionnalites' },
+  { label: 'Tarifs', href: '#tarifs' },
+  { label: 'Témoignages', href: '#temoignages' },
+  { label: 'Support', href: '#support' },
+];
+---
+
+<header class="header">
+  <div class="container header__inner">
+    <a href="/" class="header__logo">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <rect width="32" height="32" rx="6" fill="#2E5748"/>
+        <path d="M8 11h6c2.2 0 4 1.8 4 4s-1.8 4-4 4h-4v4H8V11zm2 2v4h4c1.1 0 2-.9 2-2s-.9-2-2-2h-4z" fill="white"/>
+        <circle cx="22" cy="20" r="4" fill="#CEFEAB"/>
+      </svg>
+      <span>Buzzee</span>
+    </a>
+
+    <nav class="header__nav" id="main-nav">
+      {navItems.map(item => (
+        <a href={item.href} class="header__link">{item.label}</a>
+      ))}
+    </nav>
+
+    <div class="header__actions">
+      <a href="#" class="header__link header__link--login">Se connecter</a>
+      <a href="#tarifs" class="btn btn--primary btn--sm">Essai gratuit</a>
+    </div>
+
+    <button class="header__burger" id="burger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--surface-container);
+    transition: all 0.3s ease;
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+  }
+
+  .header__logo {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    font-size: 1.375rem;
+    font-weight: 800;
+    color: var(--on-surface);
+  }
+
+  .header__nav {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-8);
+  }
+
+  .header__link {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--on-surface-variant);
+    transition: color 0.2s;
+  }
+
+  .header__link:hover {
+    color: var(--primary);
+  }
+
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-6);
+  }
+
+  .header__link--login {
+    font-weight: 600;
+    color: var(--on-surface);
+  }
+
+  .btn--sm {
+    padding: 8px 20px;
+    font-size: 0.875rem;
+  }
+
+  .header__burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  .header__burger span {
+    width: 24px;
+    height: 2px;
+    background: var(--on-surface);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  @media (max-width: 768px) {
+    .header__nav,
+    .header__actions {
+      display: none;
+    }
+
+    .header__burger {
+      display: flex;
+    }
+
+    .header__nav.open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 72px;
+      left: 0;
+      right: 0;
+      background: white;
+      padding: var(--sp-6);
+      gap: var(--sp-4);
+      border-bottom: 1px solid var(--surface-container);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+  }
+</style>
+
+<script>
+  const burger = document.getElementById('burger');
+  const nav = document.getElementById('main-nav');
+  burger?.addEventListener('click', () => {
+    nav?.classList.toggle('open');
+  });
+</script>
